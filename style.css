@@ -26,8 +26,7 @@ body {
 }
 
 /* 【重要】背景画像を固定するための特殊な設定 
-   スマホでもPCでも背景が拡大されすぎず、
-   スクロールしても後ろで固定されるようにします。
+   PC（基本）では画面いっぱいに広げます
 */
 body::before {
     content: "";
@@ -44,8 +43,9 @@ body::before {
         linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
         url('https://orewatasi100-lang.github.io/studio_torajirou/asako_gemin-rogo.jpg');
     
-    background-size: cover;      /* 画面いっぱいに広げる */
+    background-size: cover;      /* PCでは画面いっぱいに広げる */
     background-position: center; /* 中央合わせ */
+    background-repeat: no-repeat;
 }
 
 a {
@@ -364,15 +364,23 @@ h1, h2, h3 {
    ========================================= */
 @media screen and (max-width: 768px) {
 
-    /* bodyの設定は ::before に任せたので削除しました */
+    /* 1. 背景画像の調整（ここを変更しました） */
+    body::before {
+        /* スマホでは左右が見切れないように「全体を収める」設定に変更 */
+        background-size: contain !important;
+        /* 画像を繰り返し表示しない */
+        background-repeat: no-repeat !important;
+        /* 画面のど真ん中に配置 */
+        background-position: center center !important;
+    }
 
-    /* ヒーロー画像（トップ画像）の調整 */
+    /* 2. ヒーロー画像（トップ画像）の調整 */
     .hero {
         height: 65vh !important;
         background-position: center top !important; 
     }
 
-    /* タイトル文字の調整 */
+    /* 3. タイトル文字の調整 */
     .hero-content h1 {
         font-size: 2.2rem !important; 
         padding: 0.5rem 1rem;
@@ -386,13 +394,13 @@ h1, h2, h3 {
         margin: 1rem auto 0;
     }
 
-    /* メニューボタンの調整 */
+    /* 4. メニューボタンの調整 */
     .menu-toggle {
         transform: scale(2) !important;
         margin-right: 15px; 
     }
     
-    /* レイアウトの調整 */
+    /* 5. レイアウトの調整 */
     .section-container {
         padding: 3rem 1rem !important;
     }
@@ -401,7 +409,7 @@ h1, h2, h3 {
         padding: 2rem 1.5rem !important;
     }
     
-    /* グリッドの調整 */
+    /* 6. グリッドの調整 */
     .grid-container {
         grid-template-columns: 1fr !important;
         gap: 2rem;
